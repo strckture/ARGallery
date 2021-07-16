@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "we_always_see_with_memory.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

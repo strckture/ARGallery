@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "persistance_of_memory.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
