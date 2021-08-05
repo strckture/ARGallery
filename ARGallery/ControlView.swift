@@ -24,6 +24,8 @@ struct ControlView: View {
 }
 
 struct ResetButton: View {
+    @ScaledMetric(relativeTo: .body) private var relativeImageHeight: CGFloat = 38.0
+    
     let haptic = Haptic()
     
     var body: some View {
@@ -36,24 +38,31 @@ struct ResetButton: View {
                 NotificationCenter.default.post(name: .deleteModels, object: nil)
                 self.haptic.simpleSucess()
                 
-            }) {
-                VStack (spacing: 5) {
-                    Image(systemName: "trash.fill")
-                        .font(.system(size: 26))
-                        .foregroundColor(.white)
-                        .buttonStyle(PlainButtonStyle())
-                        .frame(width: 26, height: 26)
+            }, label: {
+                VStack (spacing: .zero) {
                     
+                    VStack (spacing: .zero) {
+                        Spacer()
+                        Image(systemName: "trash.fill")
+                            .imageScale(.large)
+//                            .font(.system(size: 26))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .frame(height: self.relativeImageHeight)
+                    .background(Color.green.opacity(0.3))
+                        
                     Text("Clear")
-                        .font(.footnote)
+                        .font(Font.caption.weight(.semibold))
                         .foregroundColor(.white)
-//                        .padding(.top, 2)
                 }
-                .frame(width: 60, height: 50)
-            }
+//                .frame(width: 60, height: 50)
+            })
+            .buttonStyle(PlainButtonStyle())
+            .padding(.top, 80)
+            .padding(.trailing, 20)
+            .background(Color.blue.opacity(0.2))
         }
-        .padding(.top, 80)
-        .padding(.trailing, 20)
     }
 }
 
@@ -61,6 +70,7 @@ struct ControlButtonBar: View {
     @EnvironmentObject var placementSettings: PlacementSettings
     @Binding var showBrowse: Bool
     @Binding var showSettings: Bool
+    
     
     
     var body: some View {
@@ -100,6 +110,8 @@ struct ControlButtonBar: View {
 
 
 struct ControlButton: View {
+    @ScaledMetric(relativeTo: .body) private var relativeImageHeight: CGFloat = 38.0
+    
     let systemIconName: String
     let description: String
     let action: () -> Void
@@ -111,26 +123,35 @@ struct ControlButton: View {
             Button(action: {
                 self.action()
                 self.haptic.simpleSucess()
-            }) {
-                VStack (spacing: 5){
-                    Image(systemName: systemIconName)
-                        .font(.system(size: 26))
-                        .foregroundColor(.white)
-                        .buttonStyle(PlainButtonStyle())
-                        .frame(width: 26, height: 26)
-//                        .padding(.bottom, 2)
+            }, label: {
+                VStack (spacing: .zero){
                     
+                    VStack (spacing: .zero) {
+                        Spacer()
+                        Image(systemName: systemIconName)
+//                            .font(.system(size: 26))
+                            .imageScale(.large)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .frame(height: self.relativeImageHeight)
+                    .background(Color.green.opacity(0.3))
+                        
                     Text(description)
-                        .font(.footnote)
+                        .font(Font.caption.weight(.semibold))
                         .foregroundColor(.white)
-//                        .padding(.top, 2)
                 }
-            }.frame(width: 60, height: 50)
+            })
+            .buttonStyle(PlainButtonStyle())
+            .padding(12.0)
+            .background(Color.blue.opacity(0.2))
+        
     }
 }
 
 struct MostRecentlyPlacedButton: View {
     @EnvironmentObject var placementSettings: PlacementSettings
+    @ScaledMetric(relativeTo: .body) private var relativeImageHeight: CGFloat = 38.0
     
     let haptic = Haptic()
     
@@ -140,39 +161,52 @@ struct MostRecentlyPlacedButton: View {
             print("Most Recently Button pressed")
             self.haptic.simpleSucess()
             self.placementSettings.selectedModel = self.placementSettings.recentlyPlaced.last
-        }) {
+        }, label: {
             if let mostRecentlyPlacedModel = self.placementSettings.recentlyPlaced.last {
-                VStack {
-                    Image(uiImage: mostRecentlyPlacedModel.thumbnail)
-                        .resizable()
-                        .frame(width: 26)
-                        .aspectRatio(1/1, contentMode: .fit)
-//                        .border(Color.white, width: 2)
-                        .background(Color.white)
-                        .cornerRadius(3.0)
+                VStack (spacing: .zero) {
+                    
+                    VStack (spacing: .zero) {
+                        Spacer()
+                        Image(uiImage: mostRecentlyPlacedModel.thumbnail)
+                            .resizable()
+                            .imageScale(.large)
+                            .aspectRatio(1/1, contentMode: .fit)
+    //                        .border(Color.white, width: 2)
+                            .background(Color.white)
+                            .cornerRadius(3.0)
+                        Spacer()
+                    }
+                    .frame(height: self.relativeImageHeight)
+                    .background(Color.green.opacity(0.3))
                     
                     Text("Recent")
-//                        .font(.system(size: 12, weight: .medium, design: .default))
-                        .font(.footnote)
+                        .font(Font.caption.weight(.semibold))
+//                      .font(.system(size: 12, weight: .medium, design: .default))
                         .foregroundColor(.white)
-//                        .padding(.top, 2)
                 }
             } else {
-                VStack {
-                    Image(systemName: "clock.fill")
-                        .font(.system(size: 26))
-                        .foregroundColor(.white)
-                        .buttonStyle(PlainButtonStyle())
-                        .frame(width: 26, height: 26)
+                VStack (spacing: .zero) {
+                    
+                    VStack (spacing: .zero) {
+                        Spacer()
+                        Image(systemName: "clock.fill")
+//                            .font(.system(size: 26))
+                            .imageScale(.large)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .frame(height: self.relativeImageHeight)
+                    .background(Color.green.opacity(0.3))
                     
                     Text("Recent")
-                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .font(Font.caption.weight(.semibold))
                         .foregroundColor(.white)
-                        .padding(.top, 2)
                 }
             }
-        }
-        .frame(width: 60, height: 50)
+        })
+        .buttonStyle(PlainButtonStyle())
+        .padding(12.0)
+        .background(Color.blue.opacity(0.2))
 //        .border(Color.white, width: 2)
 //        .background(Color.white.opacity(0.7))
     }
