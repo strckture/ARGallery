@@ -42,7 +42,6 @@ struct ARViewContainer: UIViewRepresentable {
         self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, { (event) in
             
             self.updateScene(for: arView)
-            
         })
         
         return arView
