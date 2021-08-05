@@ -50,7 +50,7 @@ struct ResetButton: View {
                         Spacer()
                     }
                     .frame(height: self.relativeImageHeight)
-                    .background(Color.green.opacity(0.3))
+//                    .background(Color.green.opacity(0.3))
                         
                     Text("Clear")
                         .font(Font.caption.weight(.semibold))
@@ -61,7 +61,7 @@ struct ResetButton: View {
             .buttonStyle(PlainButtonStyle())
             .padding(.top, 80)
             .padding(.trailing, 20)
-            .background(Color.blue.opacity(0.2))
+//            .background(Color.blue.opacity(0.2))
         }
     }
 }
@@ -129,13 +129,12 @@ struct ControlButton: View {
                     VStack (spacing: .zero) {
                         Spacer()
                         Image(systemName: systemIconName)
-//                            .font(.system(size: 26))
                             .imageScale(.large)
                             .foregroundColor(.white)
                         Spacer()
                     }
                     .frame(height: self.relativeImageHeight)
-                    .background(Color.green.opacity(0.3))
+//                    .background(Color.green.opacity(0.3))
                         
                     Text(description)
                         .font(Font.caption.weight(.semibold))
@@ -144,7 +143,7 @@ struct ControlButton: View {
             })
             .buttonStyle(PlainButtonStyle())
             .padding(12.0)
-            .background(Color.blue.opacity(0.2))
+//            .background(Color.blue.opacity(0.2))
         
     }
 }
@@ -177,7 +176,7 @@ struct MostRecentlyPlacedButton: View {
                         Spacer()
                     }
                     .frame(height: self.relativeImageHeight)
-                    .background(Color.green.opacity(0.3))
+//                    .background(Color.green.opacity(0.3))
                     
                     Text("Recent")
                         .font(Font.caption.weight(.semibold))
@@ -196,7 +195,7 @@ struct MostRecentlyPlacedButton: View {
                         Spacer()
                     }
                     .frame(height: self.relativeImageHeight)
-                    .background(Color.green.opacity(0.3))
+//                    .background(Color.green.opacity(0.3))
                     
                     Text("Recent")
                         .font(Font.caption.weight(.semibold))
@@ -206,7 +205,7 @@ struct MostRecentlyPlacedButton: View {
         })
         .buttonStyle(PlainButtonStyle())
         .padding(12.0)
-        .background(Color.blue.opacity(0.2))
+//        .background(Color.blue.opacity(0.2))
 //        .border(Color.white, width: 2)
 //        .background(Color.white.opacity(0.7))
     }
