@@ -39,22 +39,26 @@ struct ResetButton: View {
                 self.haptic.simpleSucess()
                 
             }, label: {
-                VStack (spacing: .zero) {
-                    
+                ZStack {
+                    Color(.blue)
+                        .frame(width: 50, height: 50)
                     VStack (spacing: .zero) {
-                        Spacer()
-                        Image(systemName: "trash.fill")
-                            .imageScale(.large)
-//                            .font(.system(size: 26))
-                            .foregroundColor(.white)
-                        Spacer()
-                    }
-                    .frame(height: self.relativeImageHeight)
-//                    .background(Color.green.opacity(0.3))
                         
-                    Text("Clear")
-                        .font(Font.caption.weight(.semibold))
-                        .foregroundColor(.white)
+                        VStack (spacing: .zero) {
+                            Spacer()
+                            Image(systemName: "trash.fill")
+                                .imageScale(.large)
+                                //.font(.system(size: 26))
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        .frame(height: self.relativeImageHeight)
+                        //.background(Color.green.opacity(0.3))
+                        
+                        Text("Clear")
+                            .font(Font.caption.weight(.semibold))
+                            .foregroundColor(.white)
+                    }
                 }
 //                .frame(width: 60, height: 50)
             })
@@ -124,21 +128,25 @@ struct ControlButton: View {
                 self.action()
                 self.haptic.simpleSucess()
             }, label: {
-                VStack (spacing: .zero){
+                ZStack {
+                    Color(.blue)
+                        .frame(width: 50, height: 50)
                     
-                    VStack (spacing: .zero) {
-                        Spacer()
-                        Image(systemName: systemIconName)
-                            .imageScale(.large)
-                            .foregroundColor(.white)
-                        Spacer()
-                    }
-                    .frame(height: self.relativeImageHeight)
-//                    .background(Color.green.opacity(0.3))
+                    VStack (spacing: .zero){
                         
-                    Text(description)
-                        .font(Font.caption.weight(.semibold))
-                        .foregroundColor(.white)
+                        VStack (spacing: .zero) {
+                            Spacer()
+                            Image(systemName: systemIconName)
+                                .imageScale(.large)
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        .frame(height: self.relativeImageHeight)
+                        
+                        Text(description)
+                            .font(Font.caption.weight(.semibold))
+                            .foregroundColor(.white)
+                    }
                 }
             })
             .buttonStyle(PlainButtonStyle())
@@ -162,44 +170,54 @@ struct MostRecentlyPlacedButton: View {
             self.placementSettings.selectedModel = self.placementSettings.recentlyPlaced.last
         }, label: {
             if let mostRecentlyPlacedModel = self.placementSettings.recentlyPlaced.last {
-                VStack (spacing: .zero) {
+                ZStack {
+                    Color(.blue)
+                        .frame(width: 50, height: 50)
                     
                     VStack (spacing: .zero) {
-                        Spacer()
-                        Image(uiImage: mostRecentlyPlacedModel.thumbnail)
-                            .resizable()
-                            .imageScale(.large)
-                            .aspectRatio(1/1, contentMode: .fit)
-    //                        .border(Color.white, width: 2)
-                            .background(Color.white)
-                            .cornerRadius(3.0)
-                        Spacer()
+                        
+                        VStack (spacing: .zero) {
+                            Spacer()
+                            Image(uiImage: mostRecentlyPlacedModel.thumbnail)
+                                .resizable()
+                                .imageScale(.large)
+                                .aspectRatio(1/1, contentMode: .fit)
+                                //                        .border(Color.white, width: 2)
+                                .background(Color.white)
+                                .cornerRadius(3.0)
+                            Spacer()
+                        }
+                        .frame(height: self.relativeImageHeight)
+                        //                    .background(Color.green.opacity(0.3))
+                        
+                        Text("Recent")
+                            .font(Font.caption.weight(.semibold))
+                            //                      .font(.system(size: 12, weight: .medium, design: .default))
+                            .foregroundColor(.white)
                     }
-                    .frame(height: self.relativeImageHeight)
-//                    .background(Color.green.opacity(0.3))
-                    
-                    Text("Recent")
-                        .font(Font.caption.weight(.semibold))
-//                      .font(.system(size: 12, weight: .medium, design: .default))
-                        .foregroundColor(.white)
                 }
             } else {
-                VStack (spacing: .zero) {
+                ZStack {
+                    Color(.blue)
+                        .frame(width: 50, height: 50)
                     
                     VStack (spacing: .zero) {
-                        Spacer()
-                        Image(systemName: "clock.fill")
-//                            .font(.system(size: 26))
-                            .imageScale(.large)
+                        
+                        VStack (spacing: .zero) {
+                            Spacer()
+                            Image(systemName: "clock.fill")
+                                //.font(.system(size: 26))
+                                .imageScale(.large)
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        .frame(height: self.relativeImageHeight)
+                        //.background(Color.green.opacity(0.3))
+                        
+                        Text("Recent")
+                            .font(Font.caption.weight(.semibold))
                             .foregroundColor(.white)
-                        Spacer()
                     }
-                    .frame(height: self.relativeImageHeight)
-//                    .background(Color.green.opacity(0.3))
-                    
-                    Text("Recent")
-                        .font(Font.caption.weight(.semibold))
-                        .foregroundColor(.white)
                 }
             }
         })
