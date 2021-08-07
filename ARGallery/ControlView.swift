@@ -41,6 +41,7 @@ struct ResetButton: View {
             }, label: {
                 ZStack {
                     Color(.blue)
+                        .opacity(0.00001)
                         .frame(width: 50, height: 50)
                     VStack (spacing: .zero) {
                         
@@ -130,6 +131,7 @@ struct ControlButton: View {
             }, label: {
                 ZStack {
                     Color(.blue)
+                        .opacity(0.00001)
                         .frame(width: 50, height: 50)
                     
                     VStack (spacing: .zero){
@@ -172,6 +174,7 @@ struct MostRecentlyPlacedButton: View {
             if let mostRecentlyPlacedModel = self.placementSettings.recentlyPlaced.last {
                 ZStack {
                     Color(.blue)
+                        .opacity(0.00001)
                         .frame(width: 50, height: 50)
                     
                     VStack (spacing: .zero) {
@@ -199,6 +202,7 @@ struct MostRecentlyPlacedButton: View {
             } else {
                 ZStack {
                     Color(.blue)
+                        .opacity(0.00001)
                         .frame(width: 50, height: 50)
                     
                     VStack (spacing: .zero) {
