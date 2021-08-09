@@ -8,7 +8,10 @@
 import SwiftUI
 import RealityKit
 
+
 struct ContentView: View {
+    
+    
     @EnvironmentObject var placementSettings: PlacementSettings
     @State private var showBrowse: Bool = false
     @State private var showSettings: Bool = false
@@ -29,27 +32,43 @@ struct ContentView: View {
     }
 }
 
+
 struct ARViewContainer: UIViewRepresentable {
+    
+    
     @EnvironmentObject var placementSettings: PlacementSettings
     @EnvironmentObject var sessionSettings: SessionSettings
+    @State private var arViewHelper: ARViewHelper? = nil
     
     
     func makeUIView(context: Context) -> CustomARView {
         
+        
         let arView = CustomARView(frame: .zero, sessionSettings: sessionSettings)
+        
         
         // Subscribe to SceneEvents.Update
         self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, { (event) in
-            
             self.updateScene(for: arView)
         })
         
+        
+        // Setup ARView Helper
+        self.arViewHelper = ARViewHelper(onDelete: {
+            // code in this block will be executed when the .deleteAll notification was sent
+            self.deleteAllModels(for: arView)
+        })
+        
+        
         return arView
+        
         
     }
     
+    
     func updateUIView(_ uiView: CustomARView, context: Context) {
     }
+    
     
     private func updateScene(for arView: CustomARView) {
         
@@ -66,6 +85,7 @@ struct ARViewContainer: UIViewRepresentable {
         }
         
     }
+    
     
     private func place(_ modelEntity: ModelEntity, in arView: ARView) {
         
@@ -89,11 +109,13 @@ struct ARViewContainer: UIViewRepresentable {
         
     }
     
+    
     func deleteAllModels(for arView: CustomARView) {
 //        NotificationCenter.default.addObserver(self, selector: #selector(deleteAllModels), name: .deleteModels, object: nil)
         arView.scene.anchors.removeAll()
         print("delete everything")
     }
+    
     
 }
 
