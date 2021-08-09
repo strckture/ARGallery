@@ -34,6 +34,7 @@ struct ResetButton: View {
             Spacer()
             
             Button(action: {
+                
                 print("tactical nuke!")
                 NotificationCenter.default.post(name: .deleteModels, object: nil)
                 self.haptic.simpleSucess()
