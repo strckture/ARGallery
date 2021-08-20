@@ -7,15 +7,19 @@
 
 import SwiftUI
 import RealityKit
+import os.log
+
+
+fileprivate let logger = Logger(subsystem: "", category: "ARViewContainer")
 
 
 struct ContentView: View {
     
-    
+    @EnvironmentObject var arViewController: ARViewController
     @EnvironmentObject var placementSettings: PlacementSettings
+    
     @State private var showBrowse: Bool = false
     @State private var showSettings: Bool = false
-    
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -23,71 +27,70 @@ struct ContentView: View {
             ARViewContainer()
             
             if self.placementSettings.selectedModel == nil {
-                ControlView(showBrowse: $showBrowse, showSettings: $showSettings)
+                ControlView(showBrowse: self.$showBrowse, showSettings: self.$showSettings)
             } else {
                 PlacementView()
             }
+            
         }
         .edgesIgnoringSafeArea(.all)
     }
 }
 
 
+
+// MARK: - AR View Container
+
 struct ARViewContainer: UIViewRepresentable {
     
     
+    @EnvironmentObject var arViewController: ARViewController
     @EnvironmentObject var placementSettings: PlacementSettings
-    @EnvironmentObject var sessionSettings: SessionSettings
-    @State private var arViewHelper: ARViewHelper? = nil
+    //@EnvironmentObject var sessionSettings: SessionSettings
     
     
     func makeUIView(context: Context) -> CustomARView {
         
+        logger.debug("makeUIView")
         
-        let arView = CustomARView(frame: .zero, sessionSettings: sessionSettings)
-        
+        let arView = self.arViewController.arView
         
         // Subscribe to SceneEvents.Update
-        self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, { (event) in
+        self.placementSettings.sceneObserver = arView.scene.subscribe(to: SceneEvents.Update.self, {
+            (event) in
             self.updateScene(for: arView)
         })
         
-        
-        // Setup ARView Helper
-        self.arViewHelper = ARViewHelper(onDelete: {
-            // code in this block will be executed when the .deleteAll notification was sent
-            self.deleteAllModels(for: arView)
-        })
-        
-        
         return arView
-        
         
     }
     
     
     func updateUIView(_ uiView: CustomARView, context: Context) {
+        logger.debug("updateUIView")
     }
     
     
     private func updateScene(for arView: CustomARView) {
         
+        // logger.debug("updateScene")
+        
         // Only display focusEntity when the user has selected a model for placement
-        arView.focusEntity?.isEnabled = self.placementSettings.selectedModel != nil
+        self.arViewController.focusEntity?.isEnabled = self.placementSettings.selectedModel != nil
         
         // Add model to scene if confirmed for placement
-        if let confirmedModel = self.placementSettings.confirmedModel, let modelEntity = confirmedModel.modelEntity {
-            
+        if let confirmedModel = self.placementSettings.confirmedModel,
+           let modelEntity = confirmedModel.modelEntity {
             self.place(modelEntity, in: arView)
-            
             self.placementSettings.confirmedModel = nil
-            
         }
         
     }
     
     
     private func place(_ modelEntity: ModelEntity, in arView: ARView) {
+        
+        logger.debug("place modelEntity")
         
         // 1. Clone modelEntity. This creates an identical copy of modelEntity and references the same model. This also allows to have multiple models of the same asset in the scene.
         let clonedEntity = modelEntity.clone(recursive: true)
@@ -105,27 +108,27 @@ struct ARViewContainer: UIViewRepresentable {
         // 4. Add the anchorEntity to the arView.scene
         arView.scene.addAnchor(anchorEntity)
         
-        print("Added modelEntity to scene")
-        
     }
     
     
-    func deleteAllModels(for arView: CustomARView) {
-//        NotificationCenter.default.addObserver(self, selector: #selector(deleteAllModels), name: .deleteModels, object: nil)
-        arView.scene.anchors.removeAll()
-        print("delete everything")
-    }
+//    func deleteAllModels(for arView: CustomARView) {
+//
+//        logger.debug("deleteAllModels")
+//        arView.scene.anchors.removeAll()
+//
+//    }
     
     
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(PlacementSettings())
-            .environmentObject(SessionSettings())
-    }
-}
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//            .environmentObject(PlacementSettings())
+//            .environmentObject(SessionSettings())
+//    }
+//}
 
 
 
