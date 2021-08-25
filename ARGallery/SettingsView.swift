@@ -58,30 +58,70 @@ struct SettingsView: View {
     
 }
 
+
+
 struct SettingsGrid: View {
-    @EnvironmentObject var sessionSettings: SessionSettings
     
-    private var gridItemLayout = [GridItem(.adaptive(minimum: 100, maximum: 100), spacing: 25)]
+    @EnvironmentObject var arViewController: ARViewController
+    @Environment(\.presentationMode) var presentationMode
+    
+    // @EnvironmentObject var sessionSettings: SessionSettings
+    
+    //private var gridItemLayout = [GridItem(.adaptive(minimum: 100, maximum: 100), spacing: 25)]
     
     var body: some View {
-        ScrollView {
+        
+        return Form {
             
-            LazyVGrid(columns: gridItemLayout, spacing: 25) {
-                
-                SettingToggleButton(setting: .peopleOcclusion, isOn: $sessionSettings.isPeopleOcclusionEnabled)
-                
-                SettingToggleButton(setting: .objectOcclusion, isOn: $sessionSettings.isObjectOcclusionEnabled)
-                
-                SettingToggleButton(setting: .lidarDebug, isOn: $sessionSettings.isLidarDebugEnabled)
-            }
+            Button(action: {
+                let state = self.arViewController.togglePeopleOcclusion()
+                print("togglePeopleOcclusion \(state)")
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("togglePeopleOcclusion")
+            })
+            
+            Button(action: {
+                let state = self.arViewController.toggleObjectOcclusion()
+                print("toggleObjectOcclusion \(state)")
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("toggleObjectOcclusion")
+            })
+            
+            Button(action: {
+                let state = self.arViewController.toggleLidarDebug()
+                print("toggleLidarDebug \(state)")
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("toggleLidarDebug")
+            })
+            
         }
-        .padding(.top, 35)
+        
+//        ScrollView {
+//
+//            LazyVGrid(columns: gridItemLayout, spacing: 25) {
+//
+//
+//
+//                // SettingToggleButton(setting: .peopleOcclusion, isOn: $sessionSettings.isPeopleOcclusionEnabled)
+//
+//                // SettingToggleButton(setting: .objectOcclusion, isOn: $sessionSettings.isObjectOcclusionEnabled)
+//
+//                // SettingToggleButton(setting: .lidarDebug, isOn: $sessionSettings.isLidarDebugEnabled)
+//
+//            }
+//        }
+//        .padding(.top, 35)
+        
     }
 }
 
 
 
 struct SettingToggleButton: View {
+    
     let setting: Setting
     @Binding var isOn: Bool
     
@@ -106,4 +146,5 @@ struct SettingToggleButton: View {
         .background(Color(UIColor.secondarySystemFill))
         .cornerRadius(20)
     }
+    
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ControlView: View {
+    
+    @EnvironmentObject var arViewController: ARViewController
+    
     @Binding var showBrowse: Bool
     @Binding var showSettings: Bool
     
@@ -19,11 +22,25 @@ struct ControlView: View {
             Spacer()
             
             ControlButtonBar(showBrowse: $showBrowse, showSettings: $showSettings)
+            
+        }
+        .onAppear {
+            #if DEBUG
+            // Observe anchors for better understanding what’s happening
+            let anchors = self.arViewController.arView.scene.anchors
+            for anchor in anchors {
+                print("\n\(anchor)\n")
+            }
+            #endif
         }
     }
+    
 }
 
 struct ResetButton: View {
+    
+    @EnvironmentObject var arViewController: ARViewController
+    
     @ScaledMetric(relativeTo: .body) private var relativeImageHeight: CGFloat = 38.0
     
     let haptic = Haptic()
@@ -35,8 +52,7 @@ struct ResetButton: View {
             
             Button(action: {
                 
-                print("tactical nuke!")
-                NotificationCenter.default.post(name: .deleteModels, object: nil)
+                self.arViewController.resetScene()
                 self.haptic.simpleSucess()
                 
             }, label: {
@@ -239,7 +255,6 @@ class Haptic {
     func simpleSucess() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
-        print("bzzz bzzz")
     }
 }
 
