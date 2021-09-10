@@ -102,11 +102,24 @@ struct ARViewContainer: UIViewRepresentable {
         
         // 3. Create an anchorEntity and add a clonedEntity to the anchorEntity
 //!     // restrict anchor?
+        
         let anchorEntity = AnchorEntity(plane: .any)
+        anchorEntity.name = UUID().uuidString
         anchorEntity.addChild(clonedEntity)
+        
+        arViewController.addedAnchorsName.append(anchorEntity.name)
+        
         
         // 4. Add the anchorEntity to the arView.scene
         arView.scene.addAnchor(anchorEntity)
+        
+        
+        #if DEBUG
+//        for anchor in arView.scene.anchors {
+//            print(anchor.name)
+//        }
+        #endif
+        
         
     }
     
