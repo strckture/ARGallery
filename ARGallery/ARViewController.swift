@@ -61,15 +61,37 @@ final class ARViewController: ObservableObject {
     }
     
     
-    func resetScene() {
-        // removeAll also removes our FocusEntity which is why we re-add it afterwards
-        self.arView.scene.anchors.removeAll()
-        self.configureFocusEntity()
+    var addedAnchorsName: [String] = [String]() {
+        didSet {
+            logger.debug("didSet addedAnchorsName: \(self.addedAnchorsName)")
+        }
     }
     
     
+    func resetScene() {
+        let oldAddedAnchorsName = self.addedAnchorsName
+        for a in 0..<oldAddedAnchorsName.count {
+            let anchorName = oldAddedAnchorsName[a]
+            if let index = arView.scene.anchors.firstIndex(where: { $0.name == anchorName }) {
+                arView.scene.anchors.remove(at: index)
+                self.addedAnchorsName.removeAll(where: { $0 == anchorName })
+            } else {
+                logger.error("Unable to find anchor with name '\(anchorName)'")
+            }
+        }
+    }
+    
+    
+    // LiDAR
+    
+    @Published var deviceHasLiDAR: Bool = {
+        return ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh)
+    }()
+    
     
     // MARK: - Toggle Methods
+    
+    @Published var peopleOcclusionIsEnabled: Bool = false
     
     func togglePeopleOcclusion() -> Bool {
         
@@ -86,10 +108,12 @@ final class ARViewController: ObservableObject {
         if config.frameSemantics.contains(.personSegmentationWithDepth) {
             config.frameSemantics.remove(.personSegmentationWithDepth)
             self.arView.session.run(config)
+            self.peopleOcclusionIsEnabled = false
             return false
         } else {
             config.frameSemantics.insert(.personSegmentationWithDepth)
             self.arView.session.run(config)
+            self.peopleOcclusionIsEnabled = true
             return true
         }
         
@@ -99,6 +123,8 @@ final class ARViewController: ObservableObject {
     func toggleObjectOcclusion() -> Bool {
         
         logger.debug("toggleObjectOcclusion")
+        
+        // TODO: - Needs LiDAR?
         
         if self.arView.environment.sceneUnderstanding.options.contains(.occlusion) {
             self.arView.environment.sceneUnderstanding.options.remove(.occlusion)

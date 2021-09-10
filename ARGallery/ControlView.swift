@@ -22,6 +22,7 @@ struct ControlView: View {
             Spacer()
             
             ControlButtonBar(showBrowse: $showBrowse, showSettings: $showSettings)
+                .environmentObject(self.arViewController)
             
         }
         .onAppear {
@@ -89,10 +90,11 @@ struct ResetButton: View {
 }
 
 struct ControlButtonBar: View {
+    
+    @EnvironmentObject var arViewController: ARViewController
     @EnvironmentObject var placementSettings: PlacementSettings
     @Binding var showBrowse: Bool
     @Binding var showSettings: Bool
-    
     
     
     var body: some View {
@@ -120,6 +122,7 @@ struct ControlButtonBar: View {
                 self.showSettings.toggle()
             } .sheet(isPresented: $showSettings) {
                 SettingsView(showSettings: $showSettings)
+                    .environmentObject(self.arViewController)
             }
             
             Spacer()

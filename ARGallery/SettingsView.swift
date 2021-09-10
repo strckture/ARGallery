@@ -39,11 +39,14 @@ enum Setting {
 }
 
 struct SettingsView: View {
+    
+    @EnvironmentObject var arViewController: ARViewController
     @Binding var showSettings: Bool
     
     var body: some View {
         NavigationView {
             SettingsGrid()
+                .environmentObject(self.arViewController)
                 .navigationBarTitle(Text("Settings"), displayMode: .inline)
 //                .navigationBarTitle(Text("Settings"), displayMode: .large)
                 .navigationBarItems(trailing:
@@ -52,6 +55,7 @@ struct SettingsView: View {
                     }) {
                         Text("Done").bold()
                     })
+                
                     
         }
     }
@@ -73,21 +77,31 @@ struct SettingsGrid: View {
         
         return Form {
             
+            
+            Text("LiDAR support: \(self.arViewController.deviceHasLiDAR ? "YES" : "NO")")
+            
+            
             Button(action: {
                 let state = self.arViewController.togglePeopleOcclusion()
                 print("togglePeopleOcclusion \(state)")
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
+                Image(systemName: self.arViewController.peopleOcclusionIsEnabled ? "checkmark.seal.fill" : "xmark.seal")
                 Text("togglePeopleOcclusion")
             })
             
-            Button(action: {
-                let state = self.arViewController.toggleObjectOcclusion()
-                print("toggleObjectOcclusion \(state)")
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text("toggleObjectOcclusion")
-            })
+            
+            //if self.arViewController.deviceHasLiDAR {
+                Button(action: {
+                    let state = self.arViewController.toggleObjectOcclusion()
+                    print("toggleObjectOcclusion \(state)")
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("toggleObjectOcclusion")
+                })
+                //.disabled(!self.arViewController.deviceHasLiDAR)
+            //}
+            
             
             Button(action: {
                 let state = self.arViewController.toggleLidarDebug()
@@ -97,7 +111,9 @@ struct SettingsGrid: View {
                 Text("toggleLidarDebug")
             })
             
+            
         }
+        
         
 //        ScrollView {
 //
