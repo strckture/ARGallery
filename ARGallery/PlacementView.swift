@@ -26,7 +26,6 @@ struct PlacementView: View {
                 print("Confirm Placement button pressed.")
                 
                 self.placementSettings.confirmedModel = self.placementSettings.selectedModel
-                
                 self.placementSettings.selectedModel = nil
             }
             

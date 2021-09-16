@@ -13,7 +13,7 @@ struct BrowseView: View {
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
-                //Gridviews of 3D assets?
+                //Gridviews of 3D assets
                 RecentsGrid(showBrowse: $showBrowse)
                 ModelsByCategoryGrid(showBrowse: $showBrowse)
             }
@@ -71,7 +71,7 @@ struct ModelsByCategoryGrid: View {
                 }
             }
         }
-        
+    
     }
 }
 

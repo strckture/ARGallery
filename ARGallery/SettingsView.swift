@@ -56,7 +56,6 @@ struct SettingsView: View {
                         Text("Done").bold()
                     })
                 
-                    
         }
     }
     
@@ -70,15 +69,16 @@ struct SettingsGrid: View {
     @Environment(\.presentationMode) var presentationMode
     
     // @EnvironmentObject var sessionSettings: SessionSettings
-    
-    //private var gridItemLayout = [GridItem(.adaptive(minimum: 100, maximum: 100), spacing: 25)]
+    // private var gridItemLayout = [GridItem(.adaptive(minimum: 100, maximum: 100), spacing: 25)]
     
     var body: some View {
         
         return Form {
             
             
-            Text("LiDAR support: \(self.arViewController.deviceHasLiDAR ? "YES" : "NO")")
+            
+            
+//            Text("LiDAR support: \(self.arViewController.deviceHasLiDAR ? "YES" : "NO")")
             
             
             Button(action: {
@@ -86,32 +86,53 @@ struct SettingsGrid: View {
                 print("togglePeopleOcclusion \(state)")
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Image(systemName: self.arViewController.peopleOcclusionIsEnabled ? "checkmark.seal.fill" : "xmark.seal")
-                Text("togglePeopleOcclusion")
+                
+                HStack {
+                    Image(systemName: self.arViewController.peopleOcclusionIsEnabled ? "checkmark.seal.fill" : "xmark.seal")
+                        .font(.system(size: 16))
+                        .buttonStyle(PlainButtonStyle())
+                    Text("People Occlusion")
+                }
+                
             })
             
-            
-            //if self.arViewController.deviceHasLiDAR {
+//            if self.arViewController.deviceHasLiDAR {
                 Button(action: {
                     let state = self.arViewController.toggleObjectOcclusion()
                     print("toggleObjectOcclusion \(state)")
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    Text("toggleObjectOcclusion")
+                    
+                    HStack {
+                        Image(systemName: "xmark.seal")
+                            .font(.system(size: 16))
+                            .buttonStyle(PlainButtonStyle())
+                        Text("Object Occlusion")
+                    }
+                    
+                    
                 })
-                //.disabled(!self.arViewController.deviceHasLiDAR)
-            //}
+                .disabled(!self.arViewController.deviceHasLiDAR)
+//            }
             
             
-            Button(action: {
-                let state = self.arViewController.toggleLidarDebug()
-                print("toggleLidarDebug \(state)")
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text("toggleLidarDebug")
-            })
-            
-            
+//            if self.arViewController.deviceHasLiDAR {
+                Button(action: {
+                    let state = self.arViewController.toggleLidarDebug()
+                    print("toggleLidarDebug \(state)")
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    
+                    HStack {
+                    Image(systemName: "xmark.seal")
+                        .font(.system(size: 16))
+                        .buttonStyle(PlainButtonStyle())
+                    Text("LIDAR debug")
+                    }
+                })
+                .disabled(!self.arViewController.deviceHasLiDAR)
+    
+//            }
         }
         
         

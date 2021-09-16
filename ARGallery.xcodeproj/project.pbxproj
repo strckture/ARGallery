@@ -37,7 +37,6 @@
 		D2A8BA92267E175F0012A42F /* PlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8BA91267E175F0012A42F /* PlacementView.swift */; };
 		D2A8BA97267E1EF30012A42F /* CustomARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A8BA96267E1EF30012A42F /* CustomARView.swift */; };
 		D2A8BAA7267E47E70012A42F /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D2A8BAA6267E47E70012A42F /* FocusEntity */; };
-		D2DDAF01269364AE00CC06C0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DDAF00269364AE00CC06C0 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +92,6 @@
 		D2A8BA8F267E13C20012A42F /* PlacementSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementSettings.swift; sourceTree = "<group>"; };
 		D2A8BA91267E175F0012A42F /* PlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementView.swift; sourceTree = "<group>"; };
 		D2A8BA96267E1EF30012A42F /* CustomARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARView.swift; sourceTree = "<group>"; };
-		D2DDAF00269364AE00CC06C0 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +155,6 @@
 				D2080BDE2680B33A00E3ED02 /* SessionSettings.swift */,
 				D25B40D4265C4E29004B0B3C /* Model.swift */,
 				D2080BDC267F70B800E3ED02 /* View+Extensions.swift */,
-				D2DDAF00269364AE00CC06C0 /* Notifications.swift */,
 				D25C5DDF2649CF39000D6A80 /* Assets.xcassets */,
 				D25C5DE42649CF39000D6A80 /* Info.plist */,
 				D25C5E092649EB2E000D6A80 /* 3D Assets */,
@@ -360,7 +357,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2DDAF01269364AE00CC06C0 /* Notifications.swift in Sources */,
 				D2A8BA90267E13C20012A42F /* PlacementSettings.swift in Sources */,
 				D267AE2E26BBDDF7009B5BD8 /* ContentView.swift in Sources */,
 				D2080BDF2680B33A00E3ED02 /* SessionSettings.swift in Sources */,
