@@ -20,6 +20,9 @@ final class ARViewController: ObservableObject {
     // ARView
     let arView: CustomARView = CustomARView(frame: .zero)
     
+//    let onColor: MaterialColorParameter = try .texture(.load(named: "Add"))
+//    let offColor: MaterialColorParameter = try .texture(.load(named: "Open"))
+//
     
     // Focus Entity
     var focusEntity: FocusEntity? = nil
@@ -55,9 +58,21 @@ final class ARViewController: ObservableObject {
     
     
     private func configureFocusEntity() {
-        self.focusEntity = FocusEntity(on: self.arView, style: .colored(onColor: .color(.systemGreen),
-                                                                        offColor: .color(.systemGreen),
-                                                                        nonTrackingColor: .color(.systemRed)))
+//        self.focusEntity = FocusEntity(on: self.arView, style: .colored(onColor: .color(.systemGreen),
+//                                                                        offColor: .color(.systemGreen),
+//                                                                        nonTrackingColor: .color(.systemRed)))
+        do {
+            let onColor: MaterialColorParameter = try .texture(.load(named: "On"))
+            let offColor: MaterialColorParameter = try .texture(.load(named: "Off"))
+            
+            self.focusEntity = FocusEntity(on: self.arView, style: .colored(onColor: onColor,
+                                                                            offColor: offColor,
+                                                                            nonTrackingColor: offColor))
+        } catch {
+            self.focusEntity = FocusEntity(on: self.arView, focus: .classic)
+            print("Unable to load plane textures")
+            print(error.localizedDescription)
+        }
     }
     
     
