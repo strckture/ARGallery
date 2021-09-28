@@ -61,6 +61,7 @@ final class ARViewController: ObservableObject {
 //        self.focusEntity = FocusEntity(on: self.arView, style: .colored(onColor: .color(.systemGreen),
 //                                                                        offColor: .color(.systemGreen),
 //                                                                        nonTrackingColor: .color(.systemRed)))
+        
         do {
             let onColor: MaterialColorParameter = try .texture(.load(named: "On"))
             let offColor: MaterialColorParameter = try .texture(.load(named: "Off"))
