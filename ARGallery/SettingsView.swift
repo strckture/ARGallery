@@ -36,7 +36,6 @@ struct SettingsView: View {
 }
 
 
-
 struct SettingsGrid: View {
     
     @EnvironmentObject var arViewController: ARViewController
@@ -56,12 +55,20 @@ struct SettingsGrid: View {
                     HStack {
                         Image(systemName: self.arViewController.peopleOcclusionIsEnabled ? "person.fill.checkmark" : "person.fill.xmark")
                             .font(.system(size: 16))
-                            .foregroundColor(self.arViewController.peopleOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
-                            .buttonStyle(PlainButtonStyle())
+//                            .foregroundColor(self.arViewController.peopleOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+//                            .buttonStyle(PlainButtonStyle())
                         Text("People Occlusion")
                             .foregroundColor(self.arViewController.peopleOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+                        
+                        Spacer()
+                        
+                        if self.arViewController.peopleOcclusionIsEnabled {
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 16))
+                        }
                     }
                 })
+                
                 
                 if self.arViewController.deviceHasLiDAR {
                     Button(action: {
@@ -72,10 +79,17 @@ struct SettingsGrid: View {
                         HStack {
                             Image(systemName: self.arViewController.objectOcclusionIsEnabled ? "cube.fill" : "cube.transparent.fill")
                                 .font(.system(size: 16))
-                                .foregroundColor(self.arViewController.objectOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
-                                .buttonStyle(PlainButtonStyle())
+//                                .foregroundColor(self.arViewController.objectOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+//                                .buttonStyle(PlainButtonStyle())
                             Text("Object Occlusion")
                                 .foregroundColor(self.arViewController.objectOcclusionIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+                            
+                            Spacer()
+                            
+                            if self.arViewController.objectOcclusionIsEnabled {
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: 16))
+                            }
                         }
                     })
 //                    .disabled(!self.arViewController.deviceHasLiDAR)
@@ -91,10 +105,17 @@ struct SettingsGrid: View {
                         HStack {
                             Image(systemName: self.arViewController.LidarIsEnabled ? "light.max" : "light.min")
                                 .font(.system(size: 16))
-                                .foregroundColor(self.arViewController.LidarIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
-                                .buttonStyle(PlainButtonStyle())
+//                                .foregroundColor(self.arViewController.LidarIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+//                                .buttonStyle(PlainButtonStyle())
                             Text("LiDAR Mesh")
                                 .foregroundColor(self.arViewController.LidarIsEnabled ? Color(UIColor.systemBlue) : Color(UIColor.secondaryLabel))
+                            
+                            Spacer()
+                            
+                            if self.arViewController.objectOcclusionIsEnabled {
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: 16))
+                            }
                         }
                     })
 //                    .disabled(!self.arViewController.deviceHasLiDAR)
