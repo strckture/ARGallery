@@ -211,11 +211,11 @@ struct MostRecentlyPlacedButton: View {
                             Spacer()
                         }
                         .frame(height: self.relativeImageHeight)
-                        //                    .background(Color.green.opacity(0.3))
+                        //.background(Color.green.opacity(0.3))
                         
                         Text("Recent")
                             .font(Font.caption.weight(.semibold))
-                            //                      .font(.system(size: 12, weight: .medium, design: .default))
+                            //.font(.system(size: 12, weight: .medium, design: .default))
                             .foregroundColor(.white)
                     }
                 }
@@ -260,6 +260,3 @@ class Haptic {
         generator.notificationOccurred(.success)
     }
 }
-
-
-//

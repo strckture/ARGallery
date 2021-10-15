@@ -20,9 +20,6 @@ final class ARViewController: ObservableObject {
     // ARView
     let arView: CustomARView = CustomARView(frame: .zero)
     
-//    let onColor: MaterialColorParameter = try .texture(.load(named: "Add"))
-//    let offColor: MaterialColorParameter = try .texture(.load(named: "Open"))
-//
     
     // Focus Entity
     var focusEntity: FocusEntity? = nil
@@ -108,6 +105,8 @@ final class ARViewController: ObservableObject {
     // MARK: - Toggle Methods
     
     @Published var peopleOcclusionIsEnabled: Bool = false
+    @Published var objectOcclusionIsEnabled: Bool = false
+    @Published var LidarIsEnabled: Bool = false
     
     func togglePeopleOcclusion() -> Bool {
         
@@ -144,9 +143,11 @@ final class ARViewController: ObservableObject {
         
         if self.arView.environment.sceneUnderstanding.options.contains(.occlusion) {
             self.arView.environment.sceneUnderstanding.options.remove(.occlusion)
+            self.objectOcclusionIsEnabled = false
             return false
         } else {
             self.arView.environment.sceneUnderstanding.options.insert(.occlusion)
+            self.objectOcclusionIsEnabled = true
             return true
         }
     }
@@ -158,9 +159,11 @@ final class ARViewController: ObservableObject {
         
         if self.arView.debugOptions.contains(.showSceneUnderstanding) {
             self.arView.debugOptions.remove(.showSceneUnderstanding)
+            self.LidarIsEnabled = false
             return false
         } else {
             self.arView.debugOptions.insert(.showSceneUnderstanding)
+            self.LidarIsEnabled = true
             return true
         }
         

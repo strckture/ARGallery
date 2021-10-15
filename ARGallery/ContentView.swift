@@ -21,6 +21,9 @@ struct ContentView: View {
     @State private var showBrowse: Bool = false
     @State private var showSettings: Bool = false
     
+//    @AppStorage("showSettings") private var showSettings: Bool = false
+//    outsource? -> PreferenceView
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             
@@ -123,7 +126,7 @@ struct ARViewContainer: UIViewRepresentable {
         
     }
     
-    
+
 //    func deleteAllModels(for arView: CustomARView) {
 //
 //        logger.debug("deleteAllModels")
@@ -133,7 +136,6 @@ struct ARViewContainer: UIViewRepresentable {
     
     
 }
-
 
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
