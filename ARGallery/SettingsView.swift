@@ -112,7 +112,7 @@ struct SettingsGrid: View {
                             
                             Spacer()
                             
-                            if self.arViewController.objectOcclusionIsEnabled {
+                            if self.arViewController.LidarIsEnabled {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 16))
                             }
